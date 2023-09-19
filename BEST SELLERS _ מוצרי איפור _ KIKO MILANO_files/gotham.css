@@ -1,0 +1,29 @@
+@font-face {
+    font-family: 'Gotham';
+    src: url('https://cdn.nowdialogue.com/fonts/Gotham/Bold.eot');
+    src: url('https://cdn.nowdialogue.com/fonts/Gotham/Bold.eot?#iefix') format('embedded-opentype'),
+    url('https://cdn.nowdialogue.com/fonts/Gotham/Bold.woff') format('woff'),
+    url('https://cdn.nowdialogue.com/fonts/Gotham/Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal
+}
+
+@font-face {
+    font-family: 'Gotham';
+    src: url('https://cdn.nowdialogue.com/fonts/Gotham/Light.eot');
+    src: url('https://cdn.nowdialogue.com/fonts/Gotham/Light.eot?#iefix') format('embedded-opentype'),
+    url('https://cdn.nowdialogue.com/fonts/Gotham/Light.woff') format('woff'),
+    url('https://cdn.nowdialogue.com/fonts/Gotham/Light.ttf') format('truetype');
+    font-weight: 200;
+    font-style: normal
+}
+
+@font-face {
+    font-family: 'Gotham';
+    src: url('https://cdn.nowdialogue.com/fonts/Gotham/Medium.eot');
+    src: url('https://cdn.nowdialogue.com/fonts/Gotham/Medium.eot?#iefix') format('embedded-opentype'),
+    url('https://cdn.nowdialogue.com/fonts/Gotham/Medium.woff') format('woff'),
+    url('https://cdn.nowdialogue.com/fonts/Gotham/Medium.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal
+}

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>list-item-append</title>
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      overflow: hidden;
+      height: 100dvh;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    a:link,
+    a:visited {
+      color: #e92077;
+    }
+
+    a:hover {
+      color: violet;
+    }
+
+    a:active {
+      color: gold;
+    }
+
+    .listItemAppend {
+      width: 40dvw;
+      overflow: hidden;
+      background-color: #ffffff;
+      position: fixed;
+      top: 0;
+      right: 0;
+			text-shadow: 0 0 0.5rem white;
+			box-shadow: 0 0 1rem black;
+			z-index: 5555;
+			padding: 1rem;
+			margin: 12rem 2rem;
+      max-height: 66vmin;
+      border-radius: 3rem;
+      font-weight: 700;
+    }
+
+    pre {
+      padding: 4rem 0 0.5rem;
+      border: 1px solid gray;
+      position: relative;
+      overflow-x: auto;
+      font-weight: 900;
+      border-radius: 1rem;
+    }
+
+    pre::before {
+      position: absolute;
+      height: 3rem;
+      top: 0;
+      left: 0;
+      width: 100%;
+      content: 'javascript';
+      background-color: gray;
+      color: white;
+      padding: 0.5rem;
+
+      display: flex;
+      align-items: center;
+      box-sizing: border-box;
+    }
+
+    @media (max-width: 1199px) {
+      .listItemAppend {
+        left: 0;
+        margin: 20rem 2rem;
+        width: calc(100% - 5rem);
+        max-height: 50dvh;
+      }
+    }
+
+    @media (orientation: portrait) {
+      .listItemAppend {
+        max-height: 50dvh;
+      }
+    }
+
+    .listItemAppend {
+      overflow-y: auto;
+    }
+
+    p {
+      text-align: center;
+      font-size: 150%;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100dvh;
+      overflow-x: hidden;
+    }
+
+    iframe > *, iframe > * > * {
+      overflow-x: hidden;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .codeContainer {
+      position: relative;
+    }
+
+    #codeButtons {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      z-index: 1;
+    }
+
+    #codeButtons > button,
+    .listItemAppend > p:nth-of-type(2) > button {
+      font-weight: 700;
+      padding: 0.25rem 0.5rem;
+
+      border-radius: 0.5rem;
+      background-color: black;
+      color: white;
+    }
+
+    #codeButtons > button:hover,
+    .listItemAppend > p:nth-of-type(2) > button:hover
+    #showCode:hover,
+    #hideCode:hover,
+    .listItemAppend button:hover {
+      text-shadow: 0 0 0.5rem white;
+			box-shadow: 0 0 0.5rem black;
+
+      cursor: pointer;
+
+      transition: all 500ms;
+    }
+
+    .listItemAppend > p:nth-of-type(2) > button {
+      display: inline-block;
+      margin-bottom: 0.25rem;
+      position: relative;
+      bottom: 0.25rem;
+      transform: scale(1.25);
+    }
+
+
+    #showCode, #hideCode {
+      width: calc(100% - 2rem);
+      margin: 1rem;
+
+      font-weight: 700;
+      font-size: 150%;
+
+      padding: 0.5rem;
+
+      border-radius: 1rem;
+      background-color: black;
+      color: white;
+    }
+
+    .right-border-null {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    /* Style the buttons and their pseudo-elements */
+    .copy-button {
+      position: relative;
+    }
+
+    .copy-button:before {
+      content: 'Code copied to clipboard';
+      position: absolute;
+      top: -2rem;
+      left: 50%;
+      transform: translate(-50%, -60%);
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      z-index: 9999;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+
+      padding-bottom: 1.5rem;
+
+      /* Add a V-like tail using clip-path */
+      clip-path: polygon(0% 0%, 100% 0%, 100% 75%, 95% 80%, 60% 80%, 50% 100%, 40% 80%, 5% 80%, 0 75%);
+    }
+
+    /* Show the pseudo-element when the button is clicked */
+    .copy-button.clicked:before {
+      opacity: 1;
+      pointer-events: none; /* Disable clicks on the pseudo-element */
+    }
+  </style>
+</head>
+<body>
+  <div class="listItemAppend" id="liWidget">
+    <p>
+      <strong>
+        Here is script that append list item (after 4th existing)
+      </strong>
+    </p>
+
+    <p>
+      You can try it >> just <button class="copy-button clicked" id="copyCodeFromPre" onclick="copyCode(event)" title="Copy Code 📑">copy</button> this code,<br>go to this <button title="Go to Page ↗"><a href="https://www.kikocosmetics.co.il/best-sellers" target="_blank" rel="noopener noreferrer">page</a></button><br>and run (F12) to call dev console<br> paste code and hit enter ↩
+    </p>
+
+    <button id="showCode" onclick="showCode()" class="">Show Code</button>
+    <button id="hideCode" onclick="hideCode()" class="hidden">Hide Code</button>
+
+    <div class="codeContainer">
+      <div id="codeButtons" class="hidden">
+        <button id="copyCode" onclick="copyCode(event)" class="copy-button">Copy Code 📑</button>
+        <button id="goToPage"><a href="https://www.kikocosmetics.co.il/best-sellers" target="_blank">Go to Page ↗</a></button>
+      </div>
+      <pre id="javascriptCode" class="hidden">
+        // Create a new div element
+        const newDiv = document.createElement('div');
+
+        // Set the content for the div with some (e.g. Advertising) text
+        newDiv.innerHTML = `
+          Huge Cosmetics Sale: Save up to 50% off on all your favorite beauty products!<br>
+          &lt;a href=&quot;https://github.com//vadym4che//list-item-append&quot; target=&quot;_blank&quot;
+          style=&quot;font-weight: 500; font-style: italic;&quot;&gt;View at GH-pages&lt;/a&gt;
+          `;
+
+        // Add a class to the div for additional styling (if needed)
+        newDiv.classList.add('custom-div');
+
+        // Find the target element (4th product)
+        const targetElement = document.querySelector(
+          '.products.list.items.product-items > li:nth-child(4)'
+        );
+
+        // Create a new li element to wrap the div
+        const newLi = document.createElement('li');
+        newLi.classList.add('custom-li'); // Add a class to the li for styling
+        newLi.appendChild(newDiv);
+
+        // Insert the new li after the target element
+        targetElement.parentNode.insertBefore(newLi, targetElement.nextSibling);
+
+        // Add styles for the custom li
+        const customLiStyle = `
+        .custom-li {
+          display: flex; /* Use flexbox to center content */
+          align-items: center; /* Center vertically */
+          justify-content: center; /* Center horizontally */
+
+          text-align: center;
+          font-size: 4rem; /* Huge font for huge sale :) */
+          font-weight: 700;
+          font-variant: small-caps;
+
+          width: 100%; /* Default width */
+          height: auto; /* Adjust height as needed */
+          box-sizing: border-box;
+          margin: 1.5rem 0.5rem 3.25rem; /* Margin for card */
+          padding: 1rem; /* Padding for card */
+
+          border-radius: 10px; /* Rounded corners */
+          box-shadow: 1px 1px 5px 5px #f1f1f1; /* Box shadow */
+          background: #fff; /* Background color */
+        }
+
+        /* Media query for screens with 3 columns */
+        @media screen and (min-width: 768px) {
+          .custom-li {
+            width: 66.66%; /* 2/3 of the width */
+          }
+        }
+
+        /* Media query for mobile screens */
+        @media screen and (max-width: 767px) {
+          .custom-li {
+            width: 100%; /* Full width on mobile */
+          }
+        }
+        `;
+
+        // Create a style element and append the styles
+        const styleElement = document.createElement('style');
+        styleElement.textContent = customLiStyle;
+        document.head.appendChild(styleElement);
+      </pre>
+    </div>
+  </div>
+
+  <iframe src="BEST SELLERS _ מוצרי איפור _ KIKO MILANO.html" frameborder="0"></iframe>
+
+  <script>
+    function showCode() {
+      const codeElement = document.getElementById('javascriptCode');
+      codeElement.classList.remove('hidden');
+      document.getElementById('showCode').classList.add('hidden');
+      document.getElementById('hideCode').classList.remove('hidden');
+      document.getElementById('codeButtons').classList.remove('hidden');
+      document.getElementById('liWidget').classList.add('right-border-null');
+    }
+
+    function hideCode() {
+      const codeElement = document.getElementById('javascriptCode');
+      codeElement.classList.add('hidden');
+      document.getElementById('hideCode').classList.add('hidden');
+      document.getElementById('showCode').classList.remove('hidden');
+      document.getElementById('codeButtons').classList.add('hidden');
+      document.getElementById('liWidget').classList.remove('right-border-null');
+    }
+
+    // Find all buttons with the class "copy-button"
+    const buttons = document.querySelectorAll('.copy-button');
+
+    // Add a click event listener to each button
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        const codeElement = document.getElementById('javascriptCode');
+        const code = codeElement.innerText;
+
+        // Create a text area to temporarily hold the code
+        const textArea = document.createElement('textarea');
+        textArea.value = code;
+
+        // Append the text area to the document
+        document.body.appendChild(textArea);
+
+        // Select the text area's content
+        textArea.select();
+
+        // Copy the selected code to the clipboard
+        document.execCommand('copy');
+
+        // Remove the text area from the document
+        document.body.removeChild(textArea);
+
+        // Add the "clicked" class to the button to trigger the pseudo-element
+        button.classList.add('clicked');
+
+        // Remove the "clicked" class after a delay
+        setTimeout(() => {
+          button.classList.remove('clicked');
+        }, 2000); // Remove the class after 2 seconds
+      });
+    });
+
+  </script>
+</body>
+</html>
