@@ -5,7 +5,7 @@ function listItemAppend(parameters) {
   // Set the content for the div with some (e.g. Advertising) text
   newDiv.innerHTML = `
     Huge Cosmetics Sale: Save up to 50% off on all your favorite beauty products!<br>
-    <a href="https://vadym4che.github.io//list-item-append" target="_blank"
+    <a href="https://github.com/vadym4che/list-item-append" target="_blank"
     style="font-weight: 500; font-style: italic;">View at GH-pages</a>
     `;
 
