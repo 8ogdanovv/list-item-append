@@ -1,8 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Червоняк Вадим Вікторович | (č) vadym4che | List item appending with JavaScript">
+  <title>Червоняк Вадим Вікторович | JavaScript - List item append</title>
+
   <title>list-item-append</title>
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <style>
@@ -203,9 +206,26 @@
       opacity: 1;
       pointer-events: none; /* Disable clicks on the pseudo-element */
     }
-  </style>
+    .seo {
+            visibility: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+    <script>
+        window.onload = () => {
+          const splat = document.title.split(' | ')
+          splat.splice(1, 0, '(č) vadym4che')
+          document.title = splat.join(' | ')
+        };
+    </script>
 </head>
+
 <body>
+
+  <h1 class="seo">Червоняк Вадим Вікторович | (č) vadym4che | List item appending with JavaScript</h1>
+
   <div class="listItemAppend" id="liWidget">
     <p>
       <strong>
